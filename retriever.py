@@ -61,10 +61,6 @@ def retrieve(query, n_results=N_RESULTS):
     distances = results["distances"][0]
 
     return [
-        {
-            "text": doc,
-            "game": meta["game"],
-            "distance": dist,
-        }
+        {"text": doc, "game": meta["game"], "distance": dist}
         for doc, meta, dist in zip(documents, metadatas, distances)
     ]
