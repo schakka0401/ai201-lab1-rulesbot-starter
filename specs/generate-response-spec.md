@@ -82,7 +82,13 @@ Returns a fallback string (not an error) when `retrieved_chunks` is empty.
 *`retrieved_chunks` may include chunks with high distance scores (weak relevance). Will you filter these out before building context, pass them all in, or handle them another way? What are the tradeoffs?*
 
 ```
-[your answer here]
+The current implementation passes all retrieved chunks through without filtering 
+by distance score. The tradeoff is simplicity — no relevant chunks are accidentally 
+dropped — but it risks sending weakly related context to the model, which could 
+pull the response off-track. An alternative would be filtering out chunks above a 
+distance threshold (e.g. 0.7), which improves precision but could leave the model 
+with no context at all for unusual queries. For a rules bot with only 8 games, 
+passing all chunks is a reasonable default since N_RESULTS is already capped at 3.
 ```
 
 ---
@@ -92,7 +98,12 @@ Returns a fallback string (not an error) when `retrieved_chunks` is empty.
 *Describe how you will structure the messages list for the API call — what goes in the system message vs. the user message?*
 
 ```
-[your answer here]
+The system message contains two things: the grounding instructions (telling the 
+model to answer only from the retrieved context, cite the game, and admit when 
+the answer isn't in the rules) and the full formatted context block of retrieved 
+chunks. The user message contains only the raw query string. This keeps the 
+model's behavioral constraints and reference material separate from the question 
+itself, which is the standard structure for RAG prompt design.
 ```
 
 ---

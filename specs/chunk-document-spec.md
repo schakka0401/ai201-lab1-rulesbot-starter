@@ -116,11 +116,11 @@ handle these cases better, at the cost of more implementation complexity.
 **Actual chunk count produced across all 8 rule books:**
 
 ```
-[your answer here]
+149
 ```
 
 **One thing that surprised you or didn't match your expectations:**
 
 ```
-[your answer here]
+In a 300 character window, I didn't expect it to process that many chunks.
 ```
